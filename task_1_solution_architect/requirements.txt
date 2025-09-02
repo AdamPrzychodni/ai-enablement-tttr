@@ -1,0 +1,9 @@
+# TTTR AI Enablement Lead - Task 1: AI Architect API
+fastapi[all]
+uvicorn[standard]
+pydantic
+openai
+python-dotenv
+requests
+pytest
+black

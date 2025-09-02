@@ -1,0 +1,11 @@
+# TTTR AI Enablement Lead - Task 2: AI Readiness Assessment
+streamlit
+streamlit-survey
+pandas
+numpy
+matplotlib
+plotly
+openai
+python-dotenv
+markdown
+pytest
