@@ -1,76 +1,84 @@
-## Software Model: AI Architect API (Demo Version)
 
-### 1. Core Concept
+-----
 
-This model represents an API designed to translate a nonprofit's problem into an actionable AI-driven solution. It functions as a simple, two-step conversation:
+## 3\. Technical Stack
 
-1.  **Analyze**: Understand the user's problem.
-2.  **Recommend**: Propose a solution.
+The AI Architect API will be developed using a modern, efficient, and scalable tech stack:
 
-### 2. System Behavior (Logical Flow)
+  * **API Framework**: **FastAPI** is chosen for its high performance, ease of use, and automatic generation of interactive API documentation.
+  * **Language Model**: The **OpenAI GPT-4 API** will be used for its advanced natural language understanding and generation capabilities. A fallback mechanism will be included to handle potential API issues.
+  * **Vector Store**: A simple vector store will be implemented for the initial version to quickly prototype and store curated knowledge, such as successful AI implementations in the humanitarian sector. This is inspired by the World Bank's ImpactAI project and will allow for more contextually relevant recommendations.
 
-The system's behavior is a clear sequence: the user first gets their problem analyzed, and then uses that analysis to get a recommendation.
+-----
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant API
+## 4\. API Endpoints
 
-    User->>API: **POST /analyze** <br> { "problem_statement": "We need help managing volunteers." }
+The API consists of two main endpoints, `/analyze` and `/recommend`.
 
-    API-->>User: **Response** <br> { "problem_id": "P01", "description": "Need a system to manage volunteers.", "clarifying_questions": [...] }
+### POST /analyze
 
-    User->>API: **POST /recommend** <br> { "problem_id": "P01", "description": "...", "clarifying_questions": [] }
+  * **Purpose**: To take a vague, unstructured problem statement from a nonprofit and convert it into a structured, actionable format.
+  * **Input**: A JSON object with a `problem_statement` string.
+  * **Process**: The endpoint sends the `problem_statement` to the ChatGPT LLM with a specialized prompt designed to extract the core problem, summarize it, and generate clarifying questions if needed. This is based on research into implicit intent understanding to reduce unnecessary back-and-forth communication.
+  * **Output**: A structured JSON object containing a unique `problem_id`, a concise `description` of the problem, and a list of `clarifying_questions`.
 
-    API-->>User: **Response** <br> { "solution_summary": "...", "recommended_tech_stack": [...], "initial_steps": [...] }
-````
+### POST /recommend
 
-### 3\. Data Structure (The "Language" of the API)
+  * **Purpose**: To generate a tailored, actionable AI solution based on the structured problem from the `/analyze` endpoint.
+  * **Input**: The exact JSON output from the `/analyze` endpoint.
+  * **Process**: The structured problem description is sent to the ChatGPT LLM, along with context from the simple vector store. This allows the model to recommend a tech stack and initial steps that are relevant to the nonprofit sector.
+  * **Output**: A JSON object containing a `solution_summary`, a `recommended_tech_stack`, and a list of actionable `initial_steps`.
 
-These are the simple data structures the API speaks. Using Pydantic models provides a clear and abstract representation.
+-----
 
-#### **Input & Output for `/analyze`**
+## 5\. Data Structures
+
+The data structures are designed to be simple, clear, and efficient, using Pydantic for data validation.
+
+### /analyze Endpoint
+
+#### Request
 
 ```python
-# User sends this:
 class AnalyzeRequest(BaseModel):
     problem_statement: str
+```
 
-# User receives this:
+#### Response
+
+```python
 class AnalyzeResponse(BaseModel):
     problem_id: str
     description: str
     clarifying_questions: List[str]
 ```
 
-#### **Input & Output for `/recommend`**
+### /recommend Endpoint
+
+#### Request
 
 ```python
-# User sends the output from /analyze:
 class RecommendRequest(BaseModel):
     problem_id: str
     description: str
     clarifying_questions: List[str]
+```
 
-# User receives this:
+#### Response
+
+```python
 class RecommendResponse(BaseModel):
     solution_summary: str
     recommended_tech_stack: List[str]
     initial_steps: List[str]
 ```
 
-### 4\. Functionality (Endpoint Definitions)
+-----
 
-This is a simplified view of what each part of the API does.
+## 6\. Future Enhancements
 
-#### `POST /analyze`
+While the initial version will provide a strong foundation, there are several opportunities for future enhancements:
 
-  * **Purpose**: To structure a vague problem.
-  * **Input**: A simple JSON object with a `problem_statement`.
-  * **Output**: A structured JSON object containing a summary and questions.
-
-#### `POST /recommend`
-
-  * **Purpose**: To generate a solution from a structured problem.
-  * **Input**: The exact JSON output from the `/analyze` endpoint.
-  * **Output**: A JSON object with a summary, tech stack, and actionable first steps.
+  * **RAG Implementation**: The simple vector store can be upgraded to a more robust Retrieval-Augmented Generation (RAG) system with a dedicated vector database to provide more evidence-based recommendations.
+  * **Multi-Agent Orchestration**: Specialized agents could be developed for different nonprofit domains (e.g., fundraising, operations) to provide more comprehensive and domain-specific solutions.
+  * **Adaptive Learning**: The system could be enhanced to learn from user feedback, allowing it to adapt and improve its recommendations over time based on the organization's sector, size, and previous interactions.

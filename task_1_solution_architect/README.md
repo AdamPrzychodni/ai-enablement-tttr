@@ -1,3 +1,38 @@
+# AI Architect for Nonprofit Solutions
+
+This project is a FastAPI server that acts as an "AI Architect." It's designed to help nonprofits translate vague problem statements into actionable, AI-driven technical solutions.
+
+The API exposes two main endpoints:
+-   `/analyze`: Takes a free-form problem statement and structures it, identifying the core issue and asking clarifying questions.
+-   `/recommend`: Takes the structured problem and suggests a technical solution, including a tech stack and initial steps.
+
+---
+
+## Setup and Installation
+
+1.  **Navigate to the project directory:**
+    ```bash
+    cd path/to/your/ai-enablement-tttr
+    ```
+
+2.  **Create and populate your environment file:**
+    Copy the example environment file.
+    ```bash
+    cp task_1_solution_architect/.env.example task_1_solution_architect/.env
+    ```
+    Then, open `task_1_solution_architect/.env` and add your OpenAI API key.
+
+3.  **Install dependencies:**
+    Ensure you have a virtual environment activated and then run:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+---
+
+## Running the Server
+
+To run the FastAPI server, navigate to the `task_1_solution_architect` directory and use `uvicorn`:
 
 ```bash
 cd task_1_solution_architect
