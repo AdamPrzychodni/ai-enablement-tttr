@@ -1,3 +1,38 @@
+# AI Architect API: Software Design
+
+This document outlines the software design for the AI Architect API, a tool to translate a nonprofit's challenges into actionable, AI-driven solutions.
+
+-----
+
+## 1\. Core Concept
+
+The AI Architect API is designed as a two-step conversational tool that helps nonprofits articulate their problems and receive relevant AI-powered solutions. The process is as follows:
+
+Analyze: The API first helps to understand and structure the user's problem.
+
+Recommend: It then proposes a tailored solution based on the analyzed problem.
+
+This approach is particularly useful for nonprofits that may have a general sense of their needs (e.g., "we want to be more efficient") but require assistance in defining the problem and identifying the right technical solutions.
+
+-----
+
+## 2\. System Architecture
+
+The system is built on a two-stage processing pipeline, separating problem analysis from solution generation. This ensures a clear data flow and allows for independent scaling and development of each component.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant "AI Architect API"
+
+    User->>AI Architect API: **POST /analyze** <br> { "problem_statement": "We need help managing volunteers." }
+
+    AI Architect API-->>User: **Response** <br> { "problem_id": "P01", "description": "Need a system to manage volunteers.", "clarifying_questions": [...] }
+
+    User->>AI Architect API: **POST /recommend** <br> { "problem_id": "P01", "description": "...", "clarifying_questions": [] }
+
+    AI Architect API-->>User: **Response** <br> { "solution_summary": "...", "recommended_tech_stack": [...], "initial_steps": [...] }
+````
 
 -----
 
