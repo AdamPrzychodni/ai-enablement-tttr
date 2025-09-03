@@ -4,13 +4,13 @@ This document outlines the software design for the AI Readiness Assessment Tool,
 
 -----
 
-## 1\. Core Concept
+## 1. Core Concept
 
 The AI Readiness Assessment Tool is an interactive web application that guides nonprofits through a structured survey to assess their AI readiness. The tool then processes the survey responses to generate a comprehensive report with scores and actionable recommendations, helping organizations understand their strengths and areas for improvement.
 
 -----
 
-## 2\. System Architecture
+## 2. System Architecture
 
 The tool follows a straightforward, three-step process, ensuring a user-friendly experience from start to finish.
 
@@ -24,7 +24,7 @@ sequenceDiagram
     Assessment Tool (Streamlit)->>Assessment Tool (Streamlit): **Process** <br> 1. Calculate Category Scores <br> 2. Determine Overall Readiness Level <br> 3. Generate Recommendations
 
     Assessment Tool (Streamlit)-->>User: **Output** <br> { Displays Readiness Report in Markdown }
-```
+````
 
 -----
 
@@ -42,8 +42,8 @@ The tool will be built using a simple yet powerful technical stack, with **Strea
 
 The assessment is built on a hybrid model that combines academic frameworks with nonprofit-specific industry patterns.
 
-  * [cite\_start]**Survey Structure**: The survey is designed to be completed in under 10 minutes and is divided into 5-7 core readiness categories, such as **Digital Infrastructure**, **Leadership & Culture**, and **Data Readiness**[cite: 57, 1]. [cite\_start]The questions will use a mix of Likert scales and multiple-choice formats to gather both quantitative and qualitative data[cite: 57].
-  * [cite\_start]**Scoring Methodology**: The tool will use a quantitative scoring engine inspired by the Analytic Hierarchy Process (AHP) to provide a nuanced and defensible readiness score[cite: 2]. [cite\_start]The scoring system will combine a simple 5-level maturity model with a weighted scoring system that reflects the unique priorities of each nonprofit[cite: 2].
+  * **Survey Structure**: The survey is designed to be completed in under 10 minutes and is divided into 5-7 core readiness categories, such as **Digital Infrastructure**, **Leadership & Culture**, and **Data Readiness**. The questions will use a mix of Likert scales and multiple-choice formats to gather both quantitative and qualitative data.
+  * **Scoring Methodology**: The tool will use a quantitative scoring engine inspired by the Analytic Hierarchy Process (AHP) to provide a nuanced and defensible readiness score. The scoring system will combine a simple 5-level maturity model with a weighted scoring system that reflects the unique priorities of each nonprofit.
 
 -----
 

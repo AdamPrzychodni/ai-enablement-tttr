@@ -65,12 +65,12 @@ This is a simplified view of what each part of the API does.
 
 #### `POST /analyze`
 
-  * [cite\_start]**Purpose**: To structure a vague problem[cite: 14].
-  * [cite\_start]**Input**: A simple JSON object with a `problem_statement`[cite: 27].
-  * [cite\_start]**Output**: A structured JSON object containing a summary and questions[cite: 29].
+  * **Purpose**: To structure a vague problem[cite: 14].
+  * **Input**: A simple JSON object with a `problem_statement`.
+  * **Output**: A structured JSON object containing a summary and questions.
 
 #### `POST /recommend`
 
   * **Purpose**: To generate a solution from a structured problem.
-  * [cite\_start]**Input**: The exact JSON output from the `/analyze` endpoint[cite: 34].
-  * [cite\_start]**Output**: A JSON object with a summary, tech stack, and actionable first steps[cite: 36].
+  * **Input**: The exact JSON output from the `/analyze` endpoint.
+  * **Output**: A JSON object with a summary, tech stack, and actionable first steps.

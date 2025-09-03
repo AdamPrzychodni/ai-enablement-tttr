@@ -1,13 +1,13 @@
 ## Software Model: AI Architect API (Demo Version)
 
-### 1\. Core Concept
+### 1. Core Concept
 
 This model represents an API designed to translate a nonprofit's problem into an actionable AI-driven solution. It functions as a simple, two-step conversation:
 
 1.  **Analyze**: Understand the user's problem.
 2.  **Recommend**: Propose a solution.
 
-### 2\. System Behavior (Logical Flow)
+### 2. System Behavior (Logical Flow)
 
 The system's behavior is a clear sequence: the user first gets their problem analyzed, and then uses that analysis to get a recommendation.
 
@@ -23,7 +23,7 @@ sequenceDiagram
     User->>API: **POST /recommend** <br> { "problem_id": "P01", "description": "...", "clarifying_questions": [] }
 
     API-->>User: **Response** <br> { "solution_summary": "...", "recommended_tech_stack": [...], "initial_steps": [...] }
-```
+````
 
 ### 3\. Data Structure (The "Language" of the API)
 
@@ -65,12 +65,12 @@ This is a simplified view of what each part of the API does.
 
 #### `POST /analyze`
 
-  * [cite\_start]**Purpose**: To structure a vague problem[cite: 14].
-  * [cite\_start]**Input**: A simple JSON object with a `problem_statement`[cite: 27].
-  * [cite\_start]**Output**: A structured JSON object containing a summary and questions[cite: 29].
+  * **Purpose**: To structure a vague problem.
+  * **Input**: A simple JSON object with a `problem_statement`.
+  * **Output**: A structured JSON object containing a summary and questions.
 
 #### `POST /recommend`
 
   * **Purpose**: To generate a solution from a structured problem.
-  * [cite\_start]**Input**: The exact JSON output from the `/analyze` endpoint[cite: 34].
-  * [cite\_start]**Output**: A JSON object with a summary, tech stack, and actionable first steps[cite: 36].
+  * **Input**: The exact JSON output from the `/analyze` endpoint.
+  * **Output**: A JSON object with a summary, tech stack, and actionable first steps.
