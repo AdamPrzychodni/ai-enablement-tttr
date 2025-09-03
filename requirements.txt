@@ -1,0 +1,19 @@
+# Common
+openai
+python-dotenv
+pytest
+
+# Task 1: AI Architect API
+fastapi[all]
+uvicorn[standard]
+requests
+black
+
+# Task 2: AI Readiness Assessment
+streamlit
+streamlit-survey
+pandas
+numpy
+matplotlib
+plotly
+markdown
