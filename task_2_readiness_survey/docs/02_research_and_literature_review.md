@@ -1,4 +1,3 @@
-
 # Research and Literature Review - Task 2: AI Readiness Assessment Tool
 
 ## Executive Summary
