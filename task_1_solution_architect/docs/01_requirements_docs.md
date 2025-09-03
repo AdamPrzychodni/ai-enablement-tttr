@@ -1,7 +1,7 @@
 # Task 1: AI Architect API - Requirements Documentation
 
 ## Overview
-Build an API server that translates vague nonprofit problems into actionable AI solutions through two endpoints: `/analyze` and `/recommend`.
+Build an API server that translates nonprofit problems into actionable AI solutions through two endpoints: `/analyze` and `/recommend`.
 
 ## API Specifications
 
