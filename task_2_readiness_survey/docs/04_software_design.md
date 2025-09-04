@@ -34,7 +34,6 @@ The tool will be built using a simple yet powerful technical stack, with **Strea
 
   * **Web Framework**: **Streamlit** is chosen for its ability to quickly create beautiful, interactive data applications with simple Python scripts.
   * **Data Processing**: **Pandas** and **NumPy** will be used for efficient data manipulation and calculation of the assessment scores.
-  * **Data Visualization**: **Matplotlib** and **Plotly** will be integrated to create clear and insightful visualizations of the assessment results within the Streamlit app.
 
 -----
 
@@ -92,3 +91,4 @@ The tool is designed with future enhancements in mind to provide even greater va
   * **Ethical Framework Integration**: A dedicated module based on Responsible AI principles (fairness, transparency, accountability) could be integrated to assess ethical preparedness.
   * **Benchmarking and Peer Comparison**: A feature could be added to allow nonprofits to anonymously benchmark their readiness scores against similar organizations, providing valuable context and encouraging continuous improvement.
   * **Granular Skills Assessment**: An advanced skills module could be developed to provide a detailed analysis of a nonprofit's workforce's AI literacy and generate targeted recommendations for professional development.
+  
