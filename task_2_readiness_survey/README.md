@@ -4,6 +4,19 @@ This project is a Streamlit web application designed to help nonprofits assess t
 
 -----
 
+## Docuemntation
+
+This directory contains all the documentation for the project, following a logical progression from initial requirements to future recommendations.
+
+* `01_requirements_docs.md`: Outlines the **initial project scope, requirements, and deliverables.**
+* `02_research_and_literature_review.md`: A review of **academic papers and industry best practices** that inform the project's design.
+* `03_software_modeling.md`: Contains **high-level system models**, including logical flow diagrams and data structures.
+* `04_software_design.md`: The **detailed software design**, covering architecture, technical stack, and component functionality.
+* `05_documentation.md`: A **deep-dive technical documentation** of the source code, modules, and internal logic.
+* `06_recommendations.md`: **Strategic recommendations** for the future development and evolution of the project.
+
+-----
+
 ## Environment Setup (for Optional Feature)
 
 The core application runs without any setup. However, to enable the optional "Generate a Narrative Report" feature, which uses an LLM, you must provide an OpenAI API key.
