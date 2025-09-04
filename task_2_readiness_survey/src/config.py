@@ -10,7 +10,7 @@ class Settings:
     Reads from environment variables.
     """
     TTTR_API_KEY: str = os.getenv("TTTR_API_KEY", "")
-    TTTR_MODEL: str = os.getenv("TTTR_MODEL", "gpt-4")
+    TTTR_MODEL: str = os.getenv("TTTR_MODEL", "gpt-3.5-turbo-0125")
     TTTR_TEMPERATURE: float = float(os.getenv("TTTR_TEMPERATURE", 0.7))
 
 settings = Settings()
