@@ -1,7 +1,3 @@
-Of course. Here is the in-depth documentation for the AI Readiness Assessment Tool, following the same structure to detail its internal components and code flow.
-
------
-
 ## AI Readiness Assessment Tool: Deep Dive Documentation
 
 This document provides a detailed technical overview of the AI Readiness Assessment Tool, a Streamlit application designed to help nonprofits evaluate their preparedness for AI transformation.
