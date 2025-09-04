@@ -7,10 +7,11 @@ from llm_report import generate_llm_report
 
 st.set_page_config(page_title="AI Readiness Assessment", layout="centered")
 
-# Initialize session state to track if the survey has been completed
+# Initialize session state using dictionary-style access.
+# This is the recommended practice and resolves IDE type-checking errors.
 if "survey_completed" not in st.session_state:
-    st.session_state.survey_completed = False
-    st.session_state.survey_data = None
+    st.session_state["survey_completed"] = False
+    st.session_state["survey_data"] = None
 
 # --- Main Application Logic ---
 st.title("Nonprofit AI Readiness Assessment Tool")
@@ -23,14 +24,15 @@ def handle_submit():
     This function is called when the user clicks the 'Submit' button on the last page.
     It saves the survey data and sets the completion flag in the session state.
     """
-    st.session_state.survey_data = survey.data  # Get data from the survey object
-    st.session_state.survey_completed = True
+    st.session_state["survey_data"] = survey.data  # Get data from the survey object
+    st.session_state["survey_completed"] = True
 
 # If the survey is NOT completed, display the survey
-if not st.session_state.survey_completed:
+if not st.session_state["survey_completed"]:
     st.markdown("This tool helps nonprofit organizations understand their readiness for adopting AI. The survey takes less than 10 minutes to complete.")
     st.markdown("---")
     
+    # The on_submit callback is now correctly linked to the handle_submit function
     pages = survey.pages(len(SURVEY_QUESTIONS), on_submit=handle_submit)
 
     with pages:
@@ -65,16 +67,17 @@ else:
     st.markdown("---")
     st.header("Your AI Readiness Report")
 
-    # Safely process the stored survey data
-    if st.session_state.survey_data:
+    # Safely process the stored survey data from session state
+    if st.session_state["survey_data"]:
         formatted_responses = {}
         for category, questions in SURVEY_QUESTIONS.items():
             for q in questions:
                 question_id = q['id']
-                if question_id in st.session_state.survey_data:
+                # Check for the question_id in the survey_data dictionary
+                if question_id in st.session_state["survey_data"]:
                     question_text = q['question']
                     question_key = f"{category} - {question_text}"
-                    formatted_responses[question_key] = st.session_state.survey_data[question_id].get('value')
+                    formatted_responses[question_key] = st.session_state["survey_data"][question_id].get('value')
 
         # 1. Calculate Scores
         category_scores = calculate_category_scores(formatted_responses, SURVEY_QUESTIONS)
@@ -96,6 +99,7 @@ else:
         st.subheader("Category Breakdown & Recommendations")
         for category, score in category_scores.items():
             st.markdown(f"**{category}**")
+            # Ensure score is an integer for the progress bar
             st.progress(int(score))
             with st.expander("View Recommendations"):
                 recs = recommendations.get(category, [])
@@ -121,3 +125,4 @@ else:
                 st.markdown(llm_generated_report)
     else:
         st.error("Could not load survey data. Please try completing the survey again.")
+        
