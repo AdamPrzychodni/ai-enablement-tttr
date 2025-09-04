@@ -1,79 +1,50 @@
 # AI Readiness Assessment Tool
 
-This project is a Streamlit web application that is AI Assesment Survey for organizations. It's designed to help nonprofits assess their readiness for AI transformation through a guided survey.
-
-The tool walks a user through a series of questions covering key readiness areas and then generates a personalized report with scores and actionable recommendations. An optional feature allows for generating a more detailed narrative report using an LLM.
+This project is a Streamlit web application designed to help nonprofits assess their readiness for AI transformation through a guided survey. The tool generates a personalized report with scores and actionable recommendations.
 
 -----
 
-## Setup and Installation
+## Environment Setup (for Optional Feature)
 
-1.  **Navigate to the project directory:**
+The core application runs without any setup. However, to enable the optional "Generate a Narrative Report" feature, which uses an LLM, you must provide an OpenAI API key.
 
+1.  From the project root, navigate into this directory: `cd task_2_readiness_survey`
+2.  Copy the example environment file:
     ```bash
-    cd path/to/your/ai-enablement-tttr
+    cp .env.example .env
     ```
-
-2.  **Create and populate your environment file:**
-    Copy the example environment file. This step is necessary for the optional narrative report generation feature.
-
-    ```bash
-    cp task_2_readiness_survey/.env.example task_2_readiness_survey/.env
-    ```
-
-    Then, open `task_2_readiness_survey/.env` and add your OpenAI API key.
-
-3.  **Install dependencies:**
-    Ensure you have a virtual environment activated and then run:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
+3.  Open the new `.env` file and add your OpenAI API key.
 
 -----
 
 ## Running the Application
 
-To run the Streamlit application, navigate to the project's root directory and use the `streamlit run` command:
+From the repository's **root** directory, run the following command:
 
 ```bash
 streamlit run task_2_readiness_survey/src/main.py
 ```
 
-The application will be available in your web browser, typically at `http://localhost:8501`.
-
------
-
-## Testing
-
-To verify the core scoring and recommendation logic, you can run the automated tests using `pytest`.
-
-Navigate to the project's root directory and run:
-
-```bash
-pytest task_1_solution_architect/tests
-```
+The application will open in your web browser, typically at `http://localhost:8501`.
 
 -----
 
 ## How to Use the Tool
 
-The AI Readiness Assessment is an interactive web application.
+The AI Readiness Assessment is a user-friendly, interactive web application.
 
 ### 1\. Complete the Survey
 
-Once you launch the application, you will be guided through a multi-page survey. The questions cover six key areas of AI readiness, from your digital infrastructure to your team's capacity.
+Once you launch the application, you will be guided through a multi-page survey covering six key areas of AI readiness.
 
 ### 2\. View Your Results
 
-After submitting the survey, the tool will automatically calculate your scores and generate a personalized report directly in the application. This report includes:
+After submitting, the tool automatically calculates your scores and generates a personalized report directly in the application, including:
 
   - An overall readiness score and level.
   - A breakdown of scores for each category.
-  - Actionable recommendations for areas of improvement.
+  - Actionable recommendations for improvement.
 
 ### 3\. Generate and Download Your Report
 
-At the bottom of the results page, you have the option to generate a more detailed, narrative summary of your results. After generating the report, a download button will appear, allowing you to save a Markdown file of your personalized report.
-
------
+At the bottom of the results page, you can generate a more detailed, narrative summary of your results using AI. A download button will then appear, allowing you to save a Markdown file of your personalized report.
