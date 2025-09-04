@@ -21,7 +21,10 @@ This directory contains all the documentation for the project, following a logic
 
 The core application runs without any setup. However, to enable the optional "Generate a Narrative Report" feature, which uses an LLM, you must provide an OpenAI API key.
 
-1.  From the project root, navigate into this directory: `cd task_2_readiness_survey`
+1.  From the project root, navigate into this directory: 
+    ```bash
+    cd task_2_readiness_survey
+    ```
 2.  Copy the example environment file:
     ```bash
     cp .env.example .env

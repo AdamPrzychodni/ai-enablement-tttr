@@ -19,6 +19,7 @@ This directory contains all the documentation for the project, following a logic
 * `04_software_design.md`: The **detailed software design**, covering architecture, technical stack, and component functionality.
 * `05_documentation.md`: A **deep-dive technical documentation** of the source code, modules, and internal logic.
 * `06_recommendations.md`: **Strategic recommendations** for the future development and evolution of the project.
+* `07_demo_cases.md`: **Concrete examples** of the end-to-end API workflow, from problem statement to final recommendation.
 
 -----
 
@@ -26,12 +27,19 @@ This directory contains all the documentation for the project, following a logic
 
 Before running the server, you need to provide your OpenAI API key.
 
-1.  From the project root, navigate into this directory: `cd task_1_solution_architect`
+1.  From the project root, navigate into this directory: 
+    ```bash
+    cd task_1_solution_architect  
+    ```
 2.  Copy the example environment file:
     ```bash
     cp .env.example .env
     ```
 3.  Open the new `.env` file and add your OpenAI API key.
+4.  Go back to **root** directory.
+    ```bash
+    cd ..
+    ```
 
 -----
 
