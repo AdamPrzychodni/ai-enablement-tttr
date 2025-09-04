@@ -43,6 +43,17 @@ The API will be available at `http://127.0.0.1:8000`.
 
 ---
 
+## Testing
+To ensure the API is working correctly, you can run the automated tests using `pytest`.
+
+Navigate to the project's root directory and run:
+
+```bash
+pytest task_1_solution_architect/tests
+```
+
+---
+
 ## API Usage (cURL Examples)
 
 Here is a complete example of how to interact with the API from a new terminal.
@@ -109,3 +120,6 @@ curl -X POST "http://127.0.0.1:8000/recommend" \
 }
 ```
 
+Run tests 
+
+pytest task_1_solution_architect/tests

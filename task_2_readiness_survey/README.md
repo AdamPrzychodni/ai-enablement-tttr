@@ -44,6 +44,18 @@ The application will be available in your web browser, typically at `http://loca
 
 -----
 
+## Testing
+
+To verify the core scoring and recommendation logic, you can run the automated tests using `pytest`.
+
+Navigate to the project's root directory and run:
+
+```bash
+pytest task_1_solution_architect/tests
+```
+
+-----
+
 ## How to Use the Tool
 
 The AI Readiness Assessment is an interactive web application.
@@ -63,3 +75,5 @@ After submitting the survey, the tool will automatically calculate your scores a
 ### 3\. Generate and Download Your Report
 
 At the bottom of the results page, you have the option to generate a more detailed, narrative summary of your results. After generating the report, a download button will appear, allowing you to save a Markdown file of your personalized report.
+
+-----
