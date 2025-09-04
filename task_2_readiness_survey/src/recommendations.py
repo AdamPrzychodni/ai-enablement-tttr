@@ -1,5 +1,3 @@
-
-
 def get_recommendations(category_scores):
     """Generates tailored recommendations for each category based on its score."""
     recommendations = {}

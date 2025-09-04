@@ -7,74 +7,143 @@ from llm_report import generate_llm_report
 
 st.set_page_config(page_title="AI Readiness Assessment", layout="centered")
 
-# Initialize session state using dictionary-style access.
+# Initialize session state
 if "survey_completed" not in st.session_state:
     st.session_state["survey_completed"] = False
     st.session_state["survey_data"] = None
 
 # --- Main Application Logic ---
-st.title("Nonprofit AI Readiness Assessment Tool")
+st.title("💡 Nonprofit AI Readiness Companion")
 
 survey = ss.StreamlitSurvey()
 
-# --- Callback function to run upon survey submission ---
+# --- Callback for survey submission ---
 def handle_submit():
     """
-    This function is called when the user clicks the 'Submit' button on the last page.
-    It saves the survey data and sets the completion flag in the session state.
+    Saves the survey data and marks the completion flag.
     """
     st.session_state["survey_data"] = survey.data
     st.session_state["survey_completed"] = True
 
-# If the survey is NOT completed, display the survey
+# --- Survey view ---
 if not st.session_state["survey_completed"]:
-    st.markdown("This tool helps nonprofit organizations understand their readiness for adopting AI. The survey takes less than 10 minutes to complete.")
+    st.markdown(
+        "🌍 Welcome! This quick assessment (under 10 minutes) is designed to help your "
+        "organization explore where you are on your AI journey. "
+        "There are **no right or wrong answers** — just an opportunity to reflect. "
+        "Your responses will guide supportive, practical recommendations."
+    )
     st.markdown("---")
-    
+
     pages = survey.pages(len(SURVEY_QUESTIONS), on_submit=handle_submit)
 
     with pages:
         if pages.current == 0:
-            st.subheader("Digital Infrastructure")
+            st.subheader("🖥️ Digital Infrastructure")
+            st.info(
+                "Every organization has a different starting point with technology. "
+                "This section looks at the tools and systems you’re currently using."
+            )
             for q in SURVEY_QUESTIONS["Digital Infrastructure"]:
                 st.markdown(f"#### {q['question']}")
-                survey.radio(label=q["question"], options=list(q["options"].values()), id=q["id"], horizontal=False, label_visibility="collapsed")
-        
+                survey.radio(
+                    label=q["question"],
+                    options=list(q["options"].values()),
+                    id=q["id"],
+                    horizontal=False,
+                    label_visibility="collapsed"
+                )
+
         elif pages.current == 1:
-            st.subheader("Leadership & Culture")
+            st.subheader("🤝 Leadership & Culture")
+            st.info(
+                "Leadership support and organizational culture shape how easily new ideas take root. "
+                "Here we’ll explore how leadership currently views technology and innovation."
+            )
             for q in SURVEY_QUESTIONS["Leadership & Culture"]:
                 st.markdown(f"#### {q['question']}")
-                survey.radio(label=q["question"], options=list(q["options"].values()), id=q["id"], horizontal=False, label_visibility="collapsed")
+                survey.radio(
+                    label=q["question"],
+                    options=list(q["options"].values()),
+                    id=q["id"],
+                    horizontal=False,
+                    label_visibility="collapsed"
+                )
 
         elif pages.current == 2:
-            st.subheader("Staff Capacity")
+            st.subheader("👩‍💻 Staff Capacity")
+            st.info(
+                "Technology is only as strong as the people who use it. "
+                "This section looks at your team’s comfort with technology and learning opportunities."
+            )
             for q in SURVEY_QUESTIONS["Staff Capacity"]:
                 st.markdown(f"#### {q['question']}")
-                survey.radio(label=q["question"], options=list(q["options"].values()), id=q["id"], horizontal=False, label_visibility="collapsed")
-        
+                survey.radio(
+                    label=q["question"],
+                    options=list(q["options"].values()),
+                    id=q["id"],
+                    horizontal=False,
+                    label_visibility="collapsed"
+                )
+
         elif pages.current == 3:
-            st.subheader("Data Readiness")
+            st.subheader("📊 Data Readiness")
+            st.info(
+                "Good data makes AI powerful. This section is about how your organization "
+                "stores, manages, and ensures the quality of data."
+            )
             for q in SURVEY_QUESTIONS["Data Readiness"]:
                 st.markdown(f"#### {q['question']}")
-                survey.radio(label=q["question"], options=list(q["options"].values()), id=q["id"], horizontal=False, label_visibility="collapsed")
-        
+                survey.radio(
+                    label=q["question"],
+                    options=list(q["options"].values()),
+                    id=q["id"],
+                    horizontal=False,
+                    label_visibility="collapsed"
+                )
+
         elif pages.current == 4:
-            st.subheader("Financial Resources")
+            st.subheader("💰 Financial Resources")
+            st.info(
+                "Investing in technology doesn’t always mean big budgets — "
+                "it’s about how resources are planned and prioritized. "
+                "This section explores how funding for technology is approached."
+            )
             for q in SURVEY_QUESTIONS["Financial Resources"]:
                 st.markdown(f"#### {q['question']}")
-                survey.radio(label=q["question"], options=list(q["options"].values()), id=q["id"], horizontal=False, label_visibility="collapsed")
-        
+                survey.radio(
+                    label=q["question"],
+                    options=list(q["options"].values()),
+                    id=q["id"],
+                    horizontal=False,
+                    label_visibility="collapsed"
+                )
+
         elif pages.current == 5:
-            st.subheader("Use Case Clarity")
+            st.subheader("🎯 Use Case Clarity")
+            st.info(
+                "Clear use cases help focus energy where AI can add the most value. "
+                "Here we’ll look at how clearly your organization has identified opportunities for AI."
+            )
             for q in SURVEY_QUESTIONS["Use Case Clarity"]:
                 st.markdown(f"#### {q['question']}")
-                survey.radio(label=q["question"], options=list(q["options"].values()), id=q["id"], horizontal=False, label_visibility="collapsed")
+                survey.radio(
+                    label=q["question"],
+                    options=list(q["options"].values()),
+                    id=q["id"],
+                    horizontal=False,
+                    label_visibility="collapsed"
+                )
 
-# If the survey IS completed, display the report
+# --- Report view ---
 else:
-    st.success("Thank you for completing the assessment! Here is your report.")
+    st.success("✅ Thank you for sharing your insights!")
+    st.header("📖 Your Personalized AI Readiness Report")
+    st.markdown(
+        "This report is designed to celebrate your strengths and highlight areas where "
+        "small steps could create big impact. Think of it as a **roadmap, not a scorecard.**"
+    )
     st.markdown("---")
-    st.header("Your AI Readiness Report")
 
     if st.session_state["survey_data"]:
         formatted_responses = {}
@@ -90,37 +159,39 @@ else:
         category_scores = calculate_category_scores(formatted_responses, SURVEY_QUESTIONS)
         overall_score = calculate_overall_score(category_scores)
         readiness_level, readiness_description = get_readiness_level(overall_score)
-        
+
         # 2. Generate Recommendations
         recommendations = get_recommendations(category_scores)
 
         # 3. Display Executive Summary
-        st.subheader("Executive Summary")
-        st.metric(label="Overall AI Readiness Score", value=f"{overall_score}/100")
-        st.markdown(f"**Your Readiness Level is: {readiness_level}**")
+        st.subheader("🌟 Executive Summary")
+        st.metric(label="Overall AI Readiness Snapshot", value=f"{overall_score}/100")
+        st.markdown(f"✨ You are currently at the **{readiness_level}** stage.")
         st.write(readiness_description)
-        
+
         st.markdown("---")
 
         # 4. Display Category Breakdown
-        st.subheader("Category Breakdown & Recommendations")
+        st.subheader("🔎 Category Breakdown & Recommendations")
         for category, score in category_scores.items():
-            st.markdown(f"**{category}**")
+            st.markdown(f"### {category}")
             st.progress(int(score))
-            with st.expander("View Recommendations"):
+            st.caption("This bar shows your current progress in this area — every organization starts somewhere.")
+            with st.expander("💡 Recommendations"):
                 recs = recommendations.get(category, [])
                 if recs:
                     for rec in recs:
                         st.markdown(f"- {rec}")
                 else:
-                    st.write("You are doing great in this area!")
-        
+                    st.write("👏 You’re already in a strong place here!")
+
         st.markdown("---")
 
         # 5. Add button to generate LLM report
-        st.subheader("Generate Narrative Report")
-        if st.button("Create Human-Readable Report with LLM"):
-            with st.spinner("✍️ Our AI strategist is writing your personalized report..."):
+        st.subheader("📝 Create a Narrative Report")
+        st.caption("Our AI strategist will write a plain-language summary tailored to your results.")
+        if st.button("Generate My Report"):
+            with st.spinner("✍️ Writing your personalized report..."):
                 llm_generated_report = generate_llm_report(
                     overall_score,
                     readiness_level,
@@ -130,5 +201,4 @@ else:
                 )
                 st.markdown(llm_generated_report)
     else:
-        st.error("Could not load survey data. Please try completing the survey again.")
-        
+        st.error("⚠️ Could not load survey data. Please try completing the survey again.")
