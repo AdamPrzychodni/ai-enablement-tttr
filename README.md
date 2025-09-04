@@ -117,6 +117,22 @@ pytest task_2_readiness_survey/tests
 
 ---
 
+### Note on the Language Model (LLM)
+
+For **testing and development** purposes, both projects have been implemented using the **`gpt-3.5-turbo-0125`** model.
+
+***
+
+#### Rationale
+This choice was primarily driven by **cost-effectiveness** 💰. The `gpt-3.5-turbo-0125` model offers an excellent balance between performance and price, which allows for extensive testing without incurring significant costs.
+
+***
+
+#### Upgradability
+The architecture of both tools was designed with flexibility in mind. In the configuration file (`.env`), the default model can easily be **replaced** with any newer, more powerful model from OpenAI, such as **`gpt-4-turbo`** or **`gpt-4o`**. A production deployment can therefore take full advantage of the advanced capabilities of these models without requiring any changes to the source code.
+
+---
+
 ## 📜 License
 
 This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
