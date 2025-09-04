@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit_survey as ss
+
 from survey_questions import SURVEY_QUESTIONS
 from scoring import calculate_category_scores, calculate_overall_score, get_readiness_level
 from recommendations import get_recommendations
@@ -11,6 +12,8 @@ st.set_page_config(page_title="AI Readiness Assessment", layout="centered")
 if "survey_completed" not in st.session_state:
     st.session_state["survey_completed"] = False
     st.session_state["survey_data"] = None
+if "llm_report" not in st.session_state:
+    st.session_state["llm_report"] = None
 
 # --- Main Application Logic ---
 st.title("💡 Nonprofit AI Readiness Companion")
@@ -19,11 +22,16 @@ survey = ss.StreamlitSurvey()
 
 # --- Callback for survey submission ---
 def handle_submit():
-    """
-    Saves the survey data and marks the completion flag.
-    """
+    """Saves the survey data and marks the completion flag."""
     st.session_state["survey_data"] = survey.data
     st.session_state["survey_completed"] = True
+
+# --- Helper to create markdown report ---
+def create_markdown_report(report_text: str) -> str:
+    """
+    Takes the report text and formats it for download as a Markdown file.
+    """
+    return report_text
 
 # --- Survey view ---
 if not st.session_state["survey_completed"]:
@@ -199,6 +207,19 @@ else:
                     category_scores,
                     recommendations
                 )
+                st.session_state["llm_report"] = llm_generated_report
                 st.markdown(llm_generated_report)
+
+        # 6. Download as Markdown if report exists
+        if st.session_state.get("llm_report"):
+            markdown_report = create_markdown_report(st.session_state["llm_report"])
+            st.download_button(
+                label="📥 Download Report as Markdown",
+                data=markdown_report,
+                file_name="AI_Readiness_Report.md",
+                mime="text/markdown"
+            )
+
     else:
         st.error("⚠️ Could not load survey data. Please try completing the survey again.")
+        
