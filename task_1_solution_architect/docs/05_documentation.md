@@ -1,10 +1,4 @@
-Of course. You're right to update the documentation. A deep-dive document is only useful if it accurately reflects the current state of the code. Now that you've implemented the simple vector store, the old documentation is obsolete.
-
-Here is the updated version of `task_1_solution_architect/docs/05_documentation.md`. It now includes the Retrieval-Augmented Generation (RAG) component in the architecture, component descriptions, and code flow diagrams, ensuring it perfectly matches your new, more intelligent system.
-
------
-
-## AI Architect: Deep Dive Documentation
+# AI Architect: Deep Dive Documentation
 
 This document provides a detailed look into the internal workings of the AI Architect API, including its architecture, code flow, and the role of each component.
 
@@ -139,3 +133,98 @@ sequenceDiagram
 5.  An API call is made to the OpenAI service with this enhanced, context-rich prompt.
 6.  The LLM provides a technical recommendation that is now grounded in the provided real-world examples.
 7.  The response is parsed and returned to the user as a `RecommendResponse` object.
+
+-----
+
+## Technical Decisions
+
+The AI Architect API was built with a focus on creating a practical, scalable, and easy-to-use tool for nonprofits.
+
+  * **API Framework**: **FastAPI** was selected for its high performance, asynchronous capabilities, and automatic generation of interactive API documentation (via Swagger UI), which simplifies testing and integration.
+  * **Language Model**: The system uses the **OpenAI API**, specifically leveraging a `gpt-3.5-turbo` model for cost-effectiveness during development. The architecture is designed to be model-agnostic, allowing for an easy upgrade to a more powerful model like `gpt-4o` by simply changing an environment variable.
+  * **Architecture**: A two-step (`/analyze` and `/recommend`) pipeline was implemented. This separates the task of understanding a user's problem from generating a solution, which leads to more focused and accurate results.
+  * **Retrieval-Augmented Generation (RAG)**: A simple in-memory vector store was implemented using `sentence-transformers` and `faiss`. This grounds the LLM's recommendations in a curated knowledge base of successful, real-world nonprofit projects, ensuring the suggestions are contextually relevant and proven. This approach was inspired by industry best practices, such as the World Bank's ImpactAI tool.
+
+-----
+
+## JSON Structure Critique
+
+The JSON structure was designed for simplicity and clarity, but there are opportunities for improvement.
+
+### Strengths
+
+  * **Simplicity and Clarity**: The field names (`problem_statement`, `description`, `solution_summary`) are self-explanatory and easy to understand.
+  * **Logical Flow**: The structure creates a clear "data contract" where the output of the `/analyze` endpoint is the direct input for the `/recommend` endpoint. This makes the API flow predictable and easy to follow.
+  * **Statelessness**: By passing the full context (`description`, `clarifying_questions`) back to the client and requiring it in the `/recommend` call, the API remains stateless. This simplifies the architecture as no server-side session storage is needed.
+
+### Weaknesses
+
+  * **Data Redundancy**: The client has to send back the `description` and `clarifying_questions` that the server just provided. This increases the payload size and shifts the burden of state management to the client.
+  * **Lack of Context**: The `clarifying_questions` are a simple array of strings. The structure doesn't allow for providing answers to these questions, making the interaction static rather than a dynamic conversation.
+  * **Limited Extensibility**: The structure is rigid. For example, the `recommended_tech_stack` is a flat list. It would be difficult to add more detail, such as cost estimates, pros/cons, or implementation difficulty for each tool, without a significant redesign.
+
+### Alternative Design
+
+If given complete freedom, a more robust and interactive design would be implemented. The key change would be to make the interaction stateful and more structured.
+
+```json
+// POST /problems -> Creates a new problem, returns a URL with the problem_id
+{
+  "problem_statement": "We struggle with volunteer engagement."
+}
+
+// GET /problems/{problem_id} -> Retrieves the current state
+{
+  "id": "prob_123",
+  "status": "needs_clarification",
+  "description": "The nonprofit struggles with volunteer engagement.",
+  "clarifying_questions": [
+    {
+      "id": "q_001",
+      "question": "What is your current process for managing volunteers?",
+      "answer": null // Client would provide an answer via a PATCH request
+    },
+    {
+      "id": "q_002",
+      "question": "What is the approximate size of your volunteer base?",
+      "answer": null
+    }
+  ]
+}
+
+// PATCH /problems/{problem_id} -> User provides answers
+{
+  "answers": [
+    {
+      "question_id": "q_001",
+      "answer_text": "We use a shared spreadsheet and manual emails."
+    }
+  ]
+}
+
+// GET /problems/{problem_id}/recommendation -> Generates recommendation once status is 'ready'
+{
+    "solution_summary": "Implement a centralized volunteer management platform with automated communication.",
+    "recommended_tech_stack": [
+        {
+            "tool": "Salesforce Nonprofit Cloud",
+            "category": "CRM",
+            "justification": "Provides a comprehensive, scalable solution for volunteer management.",
+            "cost_tier": "Free (for up to 10 licenses)"
+        },
+        {
+            "tool": "Twilio",
+            "category": "Communication",
+            "justification": "For sending automated SMS reminders and updates.",
+            "cost_tier": "Pay-as-you-go"
+        }
+    ],
+    "initial_steps": ["..."]
+}
+```
+
+#### Why this design is better:
+
+1.  **Stateful & Interactive**: It introduces a proper conversational flow. The server manages the state, and the client can provide answers to specific questions, allowing the AI to refine its understanding.
+2.  **Richer Data Structure**: The `recommended_tech_stack` is now a list of objects, not strings. This allows for adding rich context like `justification` and `cost_tier`, making the recommendations far more valuable and actionable for a nonprofit.
+3.  **RESTful Design**: It follows REST principles more closely, using different endpoints (`/problems`, `/recommendation`) and HTTP methods (`POST`, `GET`, `PATCH`) for different actions, which is a more standard and scalable approach for API design.

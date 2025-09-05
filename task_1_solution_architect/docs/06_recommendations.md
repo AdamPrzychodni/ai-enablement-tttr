@@ -53,3 +53,13 @@ Go beyond just recommending a tech stack by providing a more holistic solution p
 ### **Recommendation 4.2: Multi-Agent Orchestration for Deeper Analysis**
 * **What:** As a long-term goal, evolve the architecture into a multi-agent system. A primary "Orchestrator Agent" would route problems to specialized agents like a "Fundraising AI Agent" or a "Logistics Optimization Agent."
 * **Why:** Different nonprofit domains require deep, specialized knowledge. A multi-agent approach allows for far greater expertise and nuance than a single, general-purpose model can provide.
+
+---
+
+## 5. Address Current Design Limitations
+
+While the current design is effective for a v0.1.0, it has limitations that should be addressed to improve usability and robustness.
+
+* **Static Interaction**: The current design is a one-shot process. The `/analyze` endpoint can generate `clarifying_questions`, but there is no mechanism to **answer them and refine the analysis**. This makes the interaction less of a dynamic conversation and more of a static request-response cycle.
+
+* **Statelessness Trade-off**: The API is stateless, meaning the server doesn't store any information between calls. While this simplifies the backend, it forces the client to pass the entire output from `/analyze` back to `/recommend`. For a simple workflow, this is acceptable, but for a more complex, multi-turn conversation, a **stateful design with a persistent `problem_id`** would be more efficient and robust.
