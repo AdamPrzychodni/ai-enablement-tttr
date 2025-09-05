@@ -1,20 +1,20 @@
 # Recommendations for Future Development of the AI Architect API
 
-The current design provides an excellent proof-of-concept (v1.0) for an AI Architect API. It's simple, logical, and directly addresses the core task. The following recommendations outline a strategic roadmap to evolve this service from a functional prototype into a robust, intelligent, and highly valuable platform for the nonprofit sector.
+The current AI Architect API provides an excellent v0.1.0, successfully using a simple in-memory vector store to ground its recommendations. The following recommendations outline a strategic roadmap to evolve this service from a functional prototype into a robust, intelligent, and highly valuable platform for the nonprofit sector.
 
 ---
 
 ## 1. Enhance Context and Knowledge 🧠
 
-The current model relies on the LLM's general knowledge. The next critical step is to ground its responses in specific, high-quality, domain-relevant data.
+The next critical step is to scale the knowledge base and make the RAG system more robust and manageable.
 
-### ### **Recommendation 1.1: Implement a Full Retrieval-Augmented Generation (RAG) System**
-* **What:** Transition from the proposed "simple vector store" to a dedicated vector database (e.g., Pinecone, Weaviate, ChromaDB). Populate it with a curated knowledge base of nonprofit case studies, successful AI for Good projects, grant application guidelines, and open-source tool documentation.
-* **Why:** This will provide **evidence-based recommendations** that are directly relevant to the humanitarian sector. Instead of a generic suggestion, the API could say, "A similar organization, 'Charity X', used Tool Y to increase volunteer retention by 20%. Here’s their case study." This dramatically increases trust and actionability.
+### ### **Recommendation 1.1: Upgrade to a Dedicated Vector Database**
+* **What:** Transition from the current in-memory `faiss` index to a dedicated vector database (e.g., Pinecone, Weaviate, ChromaDB). Populate it with a larger, more diverse knowledge base of nonprofit case studies, successful AI for Good projects, grant application guidelines, and open-source tool documentation.
+* **Why:** A dedicated vector database provides persistence, scalability, and easier management of the knowledge base. This is crucial for handling a growing library of documents and enables more advanced querying capabilities beyond what the simple in-memory index can offer.
 * **How:**
-    1.  Curate a dataset of relevant documents.
-    2.  Set up a vector database and embed the documents.
-    3.  Modify the `/recommend` service to first query the vector DB for relevant context before calling the LLM.
+    1.  Set up a vector database service.
+    2.  Create a separate data ingestion pipeline to embed and store documents.
+    3.  Modify the `/recommend` service to query the dedicated database instead of the local `faiss` index.
 
 ### ### **Recommendation 1.2: Introduce Organization Profiles**
 * **What:** Create a system for nonprofits to create a simple profile containing key information like their **size, budget range, primary sector (e.g., food security, education), and existing tech stack**.
@@ -32,7 +32,7 @@ The current two-step flow is static. The future should be a dynamic, collaborati
 
 ### ### **Recommendation 2.1: Implement an Interactive Q&A Loop**
 * **What:** Transform the `clarifying_questions` from a static list into an interactive process. The API should be able to receive answers to its questions and refine its understanding.
-* **Why:** This moves the tool from a simple "request-response" API to a true conversational partner. It allows the system to dig deeper into complex problems, aligning with the research on **implicit intent understanding** (Qian et al., 2024).
+* **Why:** This moves the tool from a simple "request-response" API to a true conversational partner. It allows the system to dig deeper into complex problems.
 * **How:**
     1.  Introduce a `session_id` in the `/analyze` response.
     2.  Create a new endpoint, such as `/refine`, that accepts the `session_id` and answers to the clarifying questions.
@@ -53,11 +53,11 @@ Go beyond just recommending a tech stack by providing a more holistic solution p
 
 ### ### **Recommendation 3.1: Integrate Cost and ROI Estimation**
 * **What:** Enhance the recommendation engine to provide a rough estimate of the **cost** (software licenses, development hours) and potential **return on investment** (hours saved, increased donations, improved efficiency) for the proposed solution.
-* **Why:** This directly addresses the "nonprofit constraints" success factor. A solution is only useful if it's affordable and justifiable. Providing this information upfront is a game-changer for decision-making.
+* **Why:** This directly addresses the "nonprofit constraints" success factor. A solution is only useful if it's affordable and justifiable.
 * **How:** Fine-tune a model or create a specialized prompt chain that is fed data on software pricing, average freelance developer rates, and nonprofit impact metrics.
 
 ### ### **Recommendation 3.2: Multi-Agent Orchestration for Deeper Analysis**
-* **What:** As a long-term goal, evolve the architecture into a multi-agent system, as inspired by **HuggingGPT** (Shen et al., 2023). A primary "Orchestrator Agent" would route problems to specialized agents like a "Fundraising AI Agent," a "Logistics Optimization Agent," or an "Impact Measurement Agent."
+* **What:** As a long-term goal, evolve the architecture into a multi-agent system. A primary "Orchestrator Agent" would route problems to specialized agents like a "Fundraising AI Agent," a "Logistics Optimization Agent," or an "Impact Measurement Agent."
 * **Why:** Different nonprofit domains require deep, specialized knowledge. A multi-agent approach allows for far greater expertise and nuance than a single, general-purpose model can provide.
 * **How:**
     1.  Develop specialized prompts and knowledge bases for each domain agent.

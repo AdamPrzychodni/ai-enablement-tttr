@@ -8,9 +8,8 @@ This document outlines the software design for the AI Architect API, a tool to t
 
 The AI Architect API is designed as a two-step conversational tool that helps nonprofits articulate their problems and receive relevant AI-powered solutions. The process is as follows:
 
-Analyze: The API first helps to understand and structure the user's problem.
-
-Recommend: It then proposes a tailored solution based on the analyzed problem.
+1.  **Analyze**: The API first helps to understand and structure the user's problem.
+2.  **Recommend**: It then proposes a tailored solution based on the analyzed problem, grounded in a knowledge base of real-world examples.
 
 This approach is particularly useful for nonprofits that may have a general sense of their needs (e.g., "we want to be more efficient") but require assistance in defining the problem and identifying the right technical solutions.
 
@@ -18,21 +17,24 @@ This approach is particularly useful for nonprofits that may have a general sens
 
 ## 2\. System Architecture
 
-The system is built on a two-stage processing pipeline, separating problem analysis from solution generation. This ensures a clear data flow and allows for independent scaling and development of each component.
+The system is built on a two-stage processing pipeline that incorporates a **Retrieval-Augmented Generation (RAG)** step to enhance recommendations. This separates problem analysis from solution generation and ensures the final output is contextually relevant.
 
 ```mermaid
 sequenceDiagram
     participant User
     participant "AI Architect API"
+    participant "Vector Store"
 
-    User->>AI Architect API: **POST /analyze** <br> { "problem_statement": "We need help managing volunteers." }
+    User->>AI Architect API: **POST /analyze** <br> { "problem_statement": "..." }
+    AI Architect API-->>User: **Response** <br> { "problem_id": "...", "description": "...", ... }
 
-    AI Architect API-->>User: **Response** <br> { "problem_id": "P01", "description": "Need a system to manage volunteers.", "clarifying_questions": [...] }
-
-    User->>AI Architect API: **POST /recommend** <br> { "problem_id": "P01", "description": "...", "clarifying_questions": [] }
-
-    AI Architect API-->>User: **Response** <br> { "solution_summary": "...", "recommended_tech_stack": [...], "initial_steps": [...] }
-````
+    User->>AI Architect API: **POST /recommend** <br> { "problem_id": "...", "description": "...", ... }
+    
+    AI Architect API->>Vector Store: Search for relevant context
+    Vector Store-->>AI Architect API: Return context
+    
+    AI Architect API-->>User: **Response** <br> { "solution_summary": "...", ... }
+```
 
 -----
 
@@ -42,7 +44,7 @@ The AI Architect API will be developed using a modern, efficient, and scalable t
 
   * **API Framework**: **FastAPI** is chosen for its high performance, ease of use, and automatic generation of interactive API documentation.
   * **Language Model**: The **OpenAI GPT-4 API** will be used for its advanced natural language understanding and generation capabilities. A fallback mechanism will be included to handle potential API issues.
-  * **Vector Store**: A simple vector store will be implemented for the initial version to quickly prototype and store curated knowledge, such as successful AI implementations in the humanitarian sector. This is inspired by the World Bank's ImpactAI project and will allow for more contextually relevant recommendations.
+  * **Vector Store**: A simple, in-memory vector store using Sentence-Transformers and Faiss is implemented. This allows the system to perform efficient similarity searches against a curated knowledge base of successful nonprofit projects, providing grounded and context-aware recommendations.
 
 -----
 
