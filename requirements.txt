@@ -8,6 +8,8 @@ fastapi[all]
 uvicorn[standard]
 requests
 black
+sentence-transformers
+faiss-cpu
 
 # Task 2: AI Readiness Assessment
 streamlit

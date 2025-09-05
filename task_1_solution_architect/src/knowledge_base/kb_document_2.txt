@@ -1,0 +1,23 @@
+Case Study: Ubenwa's AI for Infant Cry Analysis (Nigeria)
+
+URL: https://www.ubenwa.ai/
+
+Inspiration Project: Ubenwa, a pioneering health-tech non-profit, developed a system to detect birth asphyxia in newborns by using AI to analyze the acoustic patterns of their cries.
+
+Problem: Birth asphyxia (a baby's failure to breathe properly at birth) is a leading cause of infant death in Africa, but early detection is difficult in low-resource clinics without specialized equipment or pediatric specialists. A simple, low-cost screening tool was needed for frontline healthcare workers.
+
+Solution: Ubenwa created an AI-powered mobile application. A nurse or midwife can record a newborn's cry for a few seconds. The AI model, trained on thousands of cry samples, analyzes the sound in real-time and provides an instant risk assessment for asphyxia. This serves as a powerful decision support tool, enabling healthcare workers to identify at-risk infants immediately and provide life-saving intervention or referral.
+
+Tech Stack:
+
+Audio Processing: Python libraries like Librosa for analyzing sound features.
+
+AI/ML Model: A Deep Learning model (likely a Convolutional Neural Network - CNN) built with TensorFlow or PyTorch.
+
+Mobile App: Flutter or React Native for a cross-platform application.
+
+Backend: Python/FastAPI to serve the AI model's predictions.
+
+Cloud Infrastructure: AWS or GCP for model training and hosting the API.
+
+Key Insight: AI can be used to create powerful diagnostic and screening tools from novel data sources (like audio), empowering non-specialist healthcare workers with capabilities that were previously only available in advanced clinical settings. The focus is on creating a simple, fast, and actionable decision support system for the person on the ground.

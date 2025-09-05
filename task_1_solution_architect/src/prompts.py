@@ -14,6 +14,7 @@ Return ONLY the JSON object.
 RECOMMEND_PROMPT = """
 You are an expert AI Architect specializing in practical, low-cost solutions for nonprofit and humanitarian organizations.
 Your task is to generate a technical recommendation based on a structured problem description.
+{context}
 
 Given the problem description below, provide a technical recommendation.
 Problem: "{description}"

@@ -1,0 +1,22 @@
+Case Study: Jacaranda Health's AI-Powered Maternal Health Platform (Kenya)
+Inspiration Project: Jacaranda Health, a nonprofit in Kenya, developed an AI-powered platform called PROMPTS to provide scalable support to expectant mothers via SMS.
+
+URL: https://jacarandahealth.org/
+
+Problem: Many expectant mothers in Kenya, particularly in low-income areas, lacked access to timely and reliable health information. It was also difficult for the health system to identify and prioritize high-risk mothers who needed urgent attention before their condition became critical.
+
+Solution: They created a free, two-way SMS platform that automatically sends mothers stage-specific health information. Mothers can also send questions. An AI system using Natural Language Processing (NLP) analyzes the incoming messages in real-time to detect keywords indicating danger signs or urgent questions. These high-risk cases are automatically flagged and triaged to a human help desk staffed by clinical professionals who can provide immediate follow-up and intervention.
+
+Tech Stack:
+
+Messaging Gateway: A regional SMS gateway like Africa's Talking is commonly used for such projects due to its reliability and cost-effectiveness in East Africa.
+
+Backend: Python with a web framework like Django or FastAPI to manage the logic and data.
+
+AI/NLP: Standard libraries like spaCy for entity recognition (to find danger signs like "bleeding") and Scikit-learn for building text classification models.
+
+Database: A robust open-source database like PostgreSQL to handle patient data securely.
+
+Dashboard: An open-source tool like Metabase for the clinical support team to view flagged messages and patient history.
+
+Key Insight: Their "human-in-the-loop" model is the most critical factor for success and safety. The AI is not used to make diagnoses, but to act as a powerful filter, enabling a small team of human experts to provide timely support to a very large population of mothers. This builds trust and ensures clinical safety.
