@@ -14,6 +14,8 @@ This project was created for **Tech To The Rescue** with the aim of empowering t
 
 ## 🔧 Overall Setup & Installation
 
+This project was developed and tested using **Python 3.10**. It is recommended to use the same version to ensure full compatibility.
+
 Before running either of the projects, please set up the environment.
 
 1.  **Navigate to the project directory:**
