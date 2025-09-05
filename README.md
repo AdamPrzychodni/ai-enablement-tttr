@@ -1,67 +1,70 @@
 # 🌍 AI Enablement for Nonprofits (Tech To The Rescue)
 
-Welcome! 👋
+Welcome\! 👋
 This repository brings together a set of AI-powered tools designed to support nonprofits and social impact organizations on their technology journey.
 
 It includes:
 
-* 🤖 **AI Architect API** — turns organizational needs into clear, actionable tech recommendations.
-* 📊 **AI Readiness Assessment Tool** — helps organizations understand how prepared they are for AI adoption.
+  * 🤖 **AI Architect API** — turns organizational needs into clear, actionable tech recommendations.
+  * 📊 **AI Readiness Assessment Tool** — helps organizations understand how prepared they are for AI adoption.
 
 This project was created for **Tech To The Rescue** with the aim of empowering the broader nonprofit tech community. 💙
 
----
+-----
 
-## 📂 Project Structure
+## 🔧 Overall Setup & Installation
 
-The repository is organized into two main parts:
+Before running either of the projects, please set up the environment.
 
-1. **`task_1_solution_architect/`**
-   A FastAPI server that acts as an "AI Architect," translating vague problem statements into structured, actionable AI solutions.
+1.  **Navigate to the project directory:**
 
-2. **`task_2_readiness_survey/`**
-   A Streamlit web application that provides an AI Readiness Assessment survey, complete with scoring and tailored recommendations.
+    ```bash
+    cd ai-enablement-tttr
+    ```
 
----
+2.  **Create and activate a virtual environment:**
 
-## 📐 👷🏻‍♀️ 🏛️ Task 1: AI Architect for Nonprofit Solutions
+    ```bash
+    # Create the virtual environment
+    python -m venv venv
 
-The **AI Architect API** helps nonprofits by:
+    # Activate on macOS and Linux
+    source venv/bin/activate
 
-* Taking a free-form problem statement ✍️
-* Identifying the core issue 🔍
-* Suggesting a technical solution with tools, frameworks, and first steps 🛠️
+    # Activate on Windows
+    .\\venv\\Scripts\\activate
+    ```
 
-### 🔧 Setup & Installation
+3.  **Install all required dependencies:**
 
-1. Navigate to the project directory:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-   ```bash
-   cd ai-enablement-tttr
-   ```
+-----
 
-2. Copy and configure your environment file:
+## 🏛️ Task 1: AI Architect for Nonprofit Solutions
 
-   ```bash
-   cp task_1_solution_architect/.env.example task_1_solution_architect/.env
-   ```
-
-   Add your **OpenAI API key** inside `.env`.
-
-3. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
+The **AI Architect API** helps nonprofits by taking a free-form problem statement, identifying the core issue, and suggesting a technical solution with tools, frameworks, and first steps.
 
 ### ▶️ Running the Server
 
-```bash
-cd task_1_solution_architect
-uvicorn src.main:app --reload
-```
+1.  **Configure your environment file:**
 
-The API will be live at 👉 `http://127.0.0.1:8000`
+    ```bash
+    cp task_1_solution_architect/.env.example task_1_solution_architect/.env
+    ```
+
+    Then, add your **OpenAI API key** inside the new `.env` file.
+
+2.  **Start the server:**
+    From the **root** directory, run:
+
+    ```bash
+    uvicorn task_1_solution_architect.src.main:app --reload
+    ```
+
+    The API will be live at 👉 `http://127.0.0.1:8000`
 
 ### ✅ Testing
 
@@ -71,72 +74,48 @@ Run automated tests with:
 pytest task_1_solution_architect/tests
 ```
 
----
+-----
 
-## 🤖 📝 📊 Task 2: AI Readiness Assessment Tool
+## 📊 Task 2: AI Readiness Assessment Tool
 
 The **AI Readiness Survey** helps nonprofits explore their preparedness for AI transformation by guiding them through questions and generating a personalized report with scores and actionable insights.
 
-### 🔧 Setup & Installation
-
-1. Navigate to the project directory:
-
-   ```bash
-   cd ai-enablement-tttr
-   ```
-
-2. Copy and configure your environment file (optional, for LLM-based reports):
-
-   ```bash
-   cp task_2_readiness_survey/.env.example task_2_readiness_survey/.env
-   ```
-
-   Add your **OpenAI API key** inside `.env`.
-
-3. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
 ### ▶️ Running the App
 
-From the repository root, run:
+1.  **Configure your environment file (optional):**
+    This step is only needed if you want to use the LLM-based report generation feature.
 
-```bash
-streamlit run task_2_readiness_survey/src/main.py
-```
+    ```bash
+    cp task_2_readiness_survey/.env.example task_2_readiness_survey/.env
+    ```
 
-Your app will open in the browser at 👉 `http://localhost:8501`
+    Then, add your **OpenAI API key** inside the new `.env` file.
+
+2.  **Run the application:**
+    From the **root** directory, run:
+
+    ```bash
+    streamlit run task_2_readiness_survey/src/main.py
+    ```
+
+    Your app will open in the browser at 👉 `http://localhost:8501`
 
 ### ✅ Testing
+
+Run automated tests with:
 
 ```bash
 pytest task_2_readiness_survey/tests
 ```
 
----
+-----
 
 ### Note on the Language Model (LLM)
 
-For **testing and development** purposes, both projects have been implemented using the **`gpt-3.5-turbo-0125`** model.
+For **testing and development** purposes, both projects have been implemented using the **`gpt-3.5-turbo-0125`** model. This choice was primarily driven by **cost-effectiveness** 💰. The architecture of both tools was designed with flexibility in mind, and the model can easily be **replaced** with a more powerful one like **`gpt-4-turbo`** or **`gpt-4o`** in the configuration file without any code changes.
 
-***
-
-#### Rationale
-This choice was primarily driven by **cost-effectiveness** 💰. The `gpt-3.5-turbo-0125` model offers an excellent balance between performance and price, which allows for extensive testing without incurring significant costs.
-
-***
-
-#### Upgradability
-The architecture of both tools was designed with flexibility in mind. In the configuration file (`.env`), the default model can easily be **replaced** with any newer, more powerful model from OpenAI, such as **`gpt-4-turbo`** or **`gpt-4o`**. A production deployment can therefore take full advantage of the advanced capabilities of these models without requiring any changes to the source code.
-
----
+-----
 
 ## 📜 License
 
-This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
-
----
-
-✨ We hope this toolkit makes AI more accessible for nonprofits and helps drive positive impact in the world.
+This project is licensed under the **MIT License**. See the [LICENSE](https://www.google.com/search?q=./LICENSE) file for details.
