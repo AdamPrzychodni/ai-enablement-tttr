@@ -23,38 +23,6 @@ This directory contains all the documentation for the project, following a logic
 
 -----
 
-## Environment Setup
-
-Before running the server, you need to provide your OpenAI API key.
-
-1.  From the project root, navigate into this directory: 
-    ```bash
-    cd task_1_solution_architect  
-    ```
-2.  Copy the example environment file:
-    ```bash
-    cp .env.example .env
-    ```
-3.  Open the new `.env` file and add your OpenAI API key.
-4.  Go back to **root** directory.
-    ```bash
-    cd ..
-    ```
-
------
-
-## Running the Server
-
-From the repository's **root** directory, run the following command:
-
-```bash
-uvicorn task_1_solution_architect.src.main:app --reload
-````
-
-The API will be available at `http://127.0.0.1:8000`.
-
------
-
 ## API Usage (cURL Examples)
 
 Here is a complete example of how to interact with the API.
@@ -66,7 +34,7 @@ Send a problem statement to structure it.
 **Request:**
 
 ```bash
-curl -X POST "[http://127.0.0.1:8000/analyze](http://127.0.0.1:8000/analyze)" \
+curl -X POST "http://127.0.0.1:8000/analyze" \
 -H "Content-Type: application/json" \
 -d '{
   "problem_statement": "We are a small environmental nonprofit and we struggle to keep our donors engaged. Our email open rates are low and we do not have a clear way to track interactions."
@@ -88,12 +56,12 @@ curl -X POST "[http://127.0.0.1:8000/analyze](http://127.0.0.1:8000/analyze)" \
 
 ### 2\. Call the `/recommend` Endpoint
 
-Use the full JSON object from the `/analyze` response to get a recommendation.
+Use the full JSON object from the `/analyze` response to get a recommendation. 
 
 **Request:**
 
 ```bash
-curl -X POST "[http://127.0.0.1:8000/recommend](http://127.0.0.1:8000/recommend)" \
+curl -X POST "http://127.0.0.1:8000/recommend" \
 -H "Content-Type: application/json" \
 -d '{
   "problem_id": "P2944",
@@ -121,11 +89,11 @@ For efficient testing, you can chain the `/analyze` and `/recommend` calls into 
 This example uses the HelpMum problem statement and formats the final JSON output for readability.
 
 ```bash
-curl -s -X POST "[http://127.0.0.1:8000/analyze](http://127.0.0.1:8000/analyze)" \
+curl -s -X POST "http://127.0.0.1:8000/analyze" \
 -H "Content-Type: application/json" \
 -d '{
   "problem_statement": "Our healthcare workers in Nigeria lack the tools to quickly identify high-risk pregnancies. We need an AI-powered system that helps them stratify risk levels early in antenatal care, so they can provide the right tailored support for each mother and prevent complications."
-}' | curl -s -X POST "[http://127.0.0.1:8000/recommend](http://127.0.0.1:8000/recommend)" \
+}' | curl -s -X POST "http://127.0.0.1:8000/recommend" \
 -H "Content-Type: application/json" \
 -d @- | jq '.'
 ```

@@ -14,7 +14,7 @@ This project was created for **Tech To The Rescue** with the aim of empowering t
 
 ## 🔧 Overall Setup & Installation
 
-This project was developed and tested using **Python 3.10**. It is recommended to use the same version to ensure full compatibility.
+This project was developed and tested using **Python 3.12**. It is recommended to use the same version to ensure full compatibility.
 
 Before running either of the projects, please set up the environment.
 
@@ -29,10 +29,14 @@ Before running either of the projects, please set up the environment.
     ```bash
     # Create the virtual environment
     python -m venv venv
+    ```
 
+    ```bash
     # Activate on macOS and Linux
     source venv/bin/activate
+    ```
 
+    ```bash
     # Activate on Windows
     .\\venv\\Scripts\\activate
     ```
@@ -67,6 +71,10 @@ The **AI Architect API** helps nonprofits by taking a free-form problem statemen
     ```
 
     The API will be live at 👉 `http://127.0.0.1:8000`
+
+3. **Test the API Endpoints:**
+    Once the server is running, you can test the endpoints using the cURL.
+    Find detailed examples for both the /analyze and /recommend endpoints in the [API Usage Documentation](https://github.com/AdamPrzychodni/ai-enablement-tttr/blob/main/task_1_solution_architect/README.md).
 
 ### ✅ Testing
 
