@@ -26,6 +26,7 @@ sequenceDiagram
     Vector Store-->>API: Return context
     
     API-->>User: **Response** <br> { "solution_summary": "...", ... }
+```
 
 ### 3\. Data Structure (The "Language" of the API)
 
